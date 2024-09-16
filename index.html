@@ -3,10 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>האתר שלי</title>
+    <title>עמוד בית</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header .logo {
+            margin-left: 20px;
+            font-size: 24px;
+        }
+        .header .tabs {
+            display: flex;
+        }
+        .header .tabs a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            border-bottom: 3px solid transparent;
+            margin: 0 5px;
+            transition: background-color 0.3s, border-bottom 0.3s;
+        }
+        .header .tabs a.active {
+            background-color: #555;
+            border-bottom: 3px solid #f0f0f0;
+        }
+        .header .login {
+            margin-right: 20px;
+        }
+        .login-form {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        .login-form input {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-form button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #555;
+        }
+        .content {
+            padding: 20px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <h1>ברוכים הבאים לאתר שלי!</h1>
-    <p>זהו האתר הראשון שבניתי עם GitHub Pages!</p>
+    <div class="header">
+        <div class="logo">המותג שלי</div>
+        <div class="tabs">
+            <a href="#home" class="tab-link active" data-tab="home">בית</a>
+            <a href="#services" class="tab-link" data-tab="services">שירותים</a>
+            <a href="#contact" class="tab-link" data-tab="contact">צור קשר</a>
+        </div>
+        <div class="login">
+            <button onclick="toggleLoginForm()">התחברות</button>
+        </div>
+        <div class="login-form" id="loginForm">
+            <input type="text" placeholder="שם משתמש" id="username">
+            <input type="password" placeholder="סיסמא" id="password">
+            <button onclick="login()">התחבר</button>
+        </div>
+    </div>
+    
+    <div class="content">
+        <div id="home" class="tab-content active">
+            <h1>ברוך הבא לבית</h1>
+            <p>תוכן הבית כאן.</p>
+        </div>
+        <div id="services" class="tab-content">
+            <h1>שירותים</h1>
+            <p>מידע על השירותים שלנו.</p>
+        </div>
+        <div id="contact" class="tab-content">
+            <h1>צור קשר</h1>
+            <p>פרטי קשר ותמיכה.</p>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.tab-link').forEach(tab => {
+            tab.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+                this.classList.add('active');
+                document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        function toggleLoginForm() {
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm.style.display === 'block') {
+                loginForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'block';
+            }
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            alert(`Username: ${username}\nPassword: ${password}`);
+            // Here you would add authentication logic
+        }
+    </script>
 </body>
 </html>
